@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.Set;
+import java.util.List;
+
 
 @NoArgsConstructor
 @Getter
@@ -22,12 +23,12 @@ public class Role {
     String name;
 
     @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
+    private List<User> users;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "roles_permission",
+    @JoinTable(name = "roles_permissions",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "permission_id"))
-    private Set<Permission> permissions;
+    private List<Permission> permissions;
 
 }
