@@ -82,6 +82,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(request -> request
+
                         .requestMatchers("/public/**", "/login/**", "/css/**").permitAll()
                         .anyRequest().authenticated());
 //                .cors(AbstractHttpConfigurer::disable)
