@@ -158,10 +158,10 @@ public class SecurityInit {
 
         RegisteredClient registeredClient = jpaRegisteredClientRepository.findByClientId("itp-standard");
         RegisteredClient registeredClient2 = jpaRegisteredClientRepository.findByClientId("itp-front-bff");
-        RegisteredClient registeredClient3 = jpaRegisteredClientRepository.findByClientId("itp-front-bff");
+        RegisteredClient registeredClient3 = jpaRegisteredClientRepository.findByClientId("itp-admin-bff");
         log.info("Registered client: {}", registeredClient);
-        log.info("Registered client: {}", registeredClient2);
-        log.info("Registered client2: {}", registeredClient3);
+        log.info("Registered client2: {}", registeredClient2);
+        log.info("Registered client3: {}", registeredClient3);
 
         if (registeredClient == null) {
             jpaRegisteredClientRepository.save(itpStandard);

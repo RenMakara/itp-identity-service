@@ -32,30 +32,35 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User loggedInUser = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with username: " + username));
 
-        // Build userDetails object
-        String[] roles = loggedInUser.getRoles().stream()
-                .map(Role::getName)
-                .toArray(String[]::new);
+//        // Build userDetails object
+//        String[] roles = loggedInUser.getRoles().stream()
+//                .map(Role::getName)
+//                .toArray(String[]::new);
+//
+//
+//        List<GrantedAuthority> authorities = new ArrayList<>();
+//        loggedInUser.getRoles().forEach(role ->{
+//            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
+//            role.getPermissions().forEach(permission -> {
+//                authorities.add(new SimpleGrantedAuthority(permission.getName()));
+//            });
+//        });
+//
+//        UserDetails userSecurity = org.springframework.security.core.userdetails.User.builder()
+//                .username(loggedInUser.getUsername())
+//                .password(loggedInUser.getPassword())
+////                .roles(roles)
+//                .authorities(authorities)
+//                .build();
+
+        CustomUserDetails customUserDetails = new CustomUserDetails(loggedInUser);
+        log.info("UserDetailsServiceImpl loadUserByUsername :{}", customUserDetails.getUsername());
+        log.info("UserDetailsServiceImpl loadUserByUsername: {} " , customUserDetails.getCoverImage());
+        log.info("UserDetailsServiceImpl loadUserByUsername :{}" ,customUserDetails.getEmail());
+        log.info("UserDetailsServiceImpl loadUserByUsername :{}" , customUserDetails.getPassword());
+        log.info("UserDetailsServiceImpl loadUserByUsername :{}" , customUserDetails.getFullName());
 
 
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        loggedInUser.getRoles().forEach(role ->{
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
-            role.getPermissions().forEach(permission -> {
-                authorities.add(new SimpleGrantedAuthority(permission.getName()));
-            });
-        });
-
-        UserDetails userSecurity = org.springframework.security.core.userdetails.User.builder()
-                .username(loggedInUser.getUsername())
-                .password(loggedInUser.getPassword())
-//                .roles(roles)
-                .authorities(authorities)
-                .build();
-
-        log.info("UserDetailsServiceImpl load user by username: {}", userSecurity.getAuthorities());
-        log.info("UserDetailsServiceImpl load user by username: {}", userSecurity.getUsername());
-
-        return userSecurity;
+        return customUserDetails;
     }
 }

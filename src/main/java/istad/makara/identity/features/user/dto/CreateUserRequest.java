@@ -1,4 +1,4 @@
 package istad.makara.identity.features.user.dto;
 
-public record UserRequest() {
+public record CreateUserRequest() {
 }
