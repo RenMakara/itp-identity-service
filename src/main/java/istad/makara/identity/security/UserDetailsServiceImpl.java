@@ -54,12 +54,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 //                .build();
 
         CustomUserDetails customUserDetails = new CustomUserDetails(loggedInUser);
-        log.info("UserDetailsServiceImpl loadUserByUsername :{}", customUserDetails.getUsername());
-        log.info("UserDetailsServiceImpl loadUserByUsername: {} " , customUserDetails.getCoverImage());
-        log.info("UserDetailsServiceImpl loadUserByUsername :{}" ,customUserDetails.getEmail());
-        log.info("UserDetailsServiceImpl loadUserByUsername :{}" , customUserDetails.getPassword());
-        log.info("UserDetailsServiceImpl loadUserByUsername :{}" , customUserDetails.getFullName());
-
+        log.info("UserDetailsServiceImpl customUserDetails = {}", customUserDetails);
 
         return customUserDetails;
     }

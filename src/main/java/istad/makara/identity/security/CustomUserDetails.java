@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -137,5 +138,18 @@ public class CustomUserDetails implements UserDetails {
     // Convenience methods for full name
     public String getFullName() {
         return givenName + " " + familyName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CustomUserDetails that = (CustomUserDetails) o;
+        return Objects.equals(getUsername(), that.getUsername()); // Compare based on a unique field
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUsername()); /// Generate hashCode based on the same field
     }
 }
