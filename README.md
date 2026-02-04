@@ -29,7 +29,7 @@ ITP Identity Service (IAM Server) is a robust identity and access management sol
 ## Technology Stack
 
 ### Backend
-- **Java 21**: Latest LTS version of Java
+- **Java 21**: Current LTS version of Java
 - **Spring Boot 4.0.1**: Core framework
 - **Spring Security**: Authentication and authorization
 - **Spring Security OAuth2 Authorization Server**: OAuth2/OIDC implementation
@@ -67,9 +67,11 @@ Before running this application, ensure you have:
 1. Create a PostgreSQL database:
 ```sql
 CREATE DATABASE db_iam;
-CREATE USER itpusr WITH PASSWORD 'itp@168';
+CREATE USER itpusr WITH PASSWORD 'your_secure_password_here';
 GRANT ALL PRIVILEGES ON DATABASE db_iam TO itpusr;
 ```
+
+> **⚠️ Security Note**: The credentials shown above are examples only. Always use strong, unique passwords and never commit real credentials to version control. Consider using environment variables or a secure credential management system.
 
 2. The application uses PostgreSQL on port `16850` by default. Update the connection details in `application.yml` if needed.
 
@@ -84,7 +86,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:16850/db_iam
     username: itpusr
-    password: itp@168
+    password: ${DB_PASSWORD:itp@168}  # Use environment variable in production
   security:
     oauth2:
       authorizationserver:
@@ -92,6 +94,12 @@ spring:
 server:
   port: 9090
 ```
+
+> **⚠️ Security Warning**: The example shows default credentials for demonstration purposes only. In production environments:
+> - Use environment variables for sensitive configuration (e.g., `${DB_PASSWORD}`)
+> - Never commit real passwords to version control
+> - Use a secure credential management system or secrets manager
+> - Follow the principle of least privilege for database users
 
 ### Key Configuration Points
 
